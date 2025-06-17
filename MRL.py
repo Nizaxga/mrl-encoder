@@ -27,7 +27,11 @@ class Matryoshka_CE_Loss(nn.Module):
         rel_importance = (
             torch.ones_like(losses)
             if self.relative_importance is None
-            else torch.tensor(self.relative_importance)
+            # Old code
+            # else torch.tensor(self.relative_importance)
+            
+            # device-loss fixed
+            else torch.tensor(self.relative_importance, device=losses.device)
         )
 
         # Apply relative importance weights
