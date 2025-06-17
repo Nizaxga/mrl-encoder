@@ -1,5 +1,3 @@
-from typing import List
-
 import torch
 import torch.nn as nn
 from typing import Type, Any, Callable, Union, List, Optional
@@ -15,7 +13,6 @@ class Matryoshka_CE_Loss(nn.Module):
         self.criterion = nn.CrossEntropyLoss(**kwargs)
         # relative importance shape: [G]
         self.relative_importance = relative_importance
-
     def forward(self, output, target):
         # output shape: [G granularities, N batch size, C number of classes]
         # target shape: [N batch size]
@@ -27,6 +24,7 @@ class Matryoshka_CE_Loss(nn.Module):
         rel_importance = (
             torch.ones_like(losses)
             if self.relative_importance is None
+        
             # Old code
             # else torch.tensor(self.relative_importance)
             
